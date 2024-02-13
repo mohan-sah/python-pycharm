@@ -48,7 +48,8 @@ def coffee_prefer():
         return 'cappuccino'
     elif user_coffee == 'report':
         print(
-            f"the current resource values.\n Water: {water_in_machine}ml \n Milk: {milk_in_machine}ml \n Coffee: {coffee_in_machine}g \n Money: ${money_in_machine}")
+            f"the current resource values.\n Water: {water_in_machine}ml"
+            f" \n Milk: {milk_in_machine}ml \n Coffee: {coffee_in_machine}g \n Money: ${money_in_machine}")
         coffee_prefer()
     elif user_coffee == 'off':
         return 'turned off'
@@ -72,7 +73,7 @@ def is_resources_sufficient(water, milk, coffee, money, coffee_ordered):
     if milk < MENU[coffee_ordered]["ingredients"]["milk"]:
         print("Sorry there is not enough milk.")
         return False
-    if coffee< MENU[coffee_ordered]["ingredients"]["coffee"]:
+    if coffee < MENU[coffee_ordered]["ingredients"]["coffee"]:
         print("Sorry there is not enough coffee.")
         return False
     # if money < MENU[coffee_ordered]["cost"]:
@@ -81,6 +82,7 @@ def is_resources_sufficient(water, milk, coffee, money, coffee_ordered):
     else:
         print("drink in making...")
         return True
+
 
 # TODO: 5.Process coins.
 # a. If there are sufficient resources to make the drink selected, then the program should
@@ -98,7 +100,7 @@ def process_coins(should_sufficient_resources):
                                 (DIME * dimes_inserted) +
                                 (NICKLE * nickles_inserted) +
                                 (PENNIE * pennies_inserted))
-        return round(total_money_inserted,2)
+        return round(total_money_inserted, 2)
     else:
         print('facing problem in processing coins')
 
@@ -117,21 +119,20 @@ def process_coins(should_sufficient_resources):
 # E.g. “Here is $2.45 dollars in change.” The change should be rounded to 2 decimal
 # places.
 def do_transaction(machine_profit):
-    """take machine profit and update it, give back extra money """
+    """take machine profit and update it, give back extra money
+    """
     if user_money >= amount_required:
         print('transaction successful, \n drink in making')
         money_to_return = round(user_money - amount_required, 2)
         machine_profit += amount_required
         print(f"Here is ${money_to_return} dollars in change.")
-        return machine_profit,True
+        return machine_profit, True
 
     else:
         money_to_return = round(amount_required - user_money, 2)
         print(f" you still need {money_to_return} to make this transaction successful\n"
               f"Sorry that's not enough money. Money refunded.")
         return machine_profit, False
-
-
 
 
 # TODO: 7.Make Coffee.
@@ -150,19 +151,17 @@ def do_transaction(machine_profit):
 # Money: $2.5
 # b. Once all resources have been deducted, tell the user “Here is your latte. Enjoy!”. If
 # latte was their choice of drink.
-def make_coffee(water_in_machine, milk_in_machine, coffee_in_machine):
+def make_coffee(container_water, container_milk, container_coffee):
+    """make coffee for user and use machine resources"""
     if should_transaction_successful:
         print(f"deducting resources")
-        water_in_machine -= MENU[coffee_ordered]["ingredients"]["water"]
-        milk_in_machine -= MENU[coffee_ordered]["ingredients"]["milk"]
-        coffee_in_machine -= MENU[coffee_ordered]["ingredients"]["coffee"]
+        container_water -= MENU[coffee_ordered]["ingredients"]["water"]
+        container_milk -= MENU[coffee_ordered]["ingredients"]["milk"]
+        container_coffee -= MENU[coffee_ordered]["ingredients"]["coffee"]
         print(f"Here is your latte. Enjoy!")
     else:
         print("cannot proceed with coffee making")
-    return water_in_machine,milk_in_machine,coffee_in_machine
-
-
-
+    return container_water, container_milk, container_coffee
 
 
 # TODO: 2. Turn off the Coffee Machine by entering “off” to the prompt.
@@ -178,7 +177,6 @@ def make_coffee(water_in_machine, milk_in_machine, coffee_in_machine):
 # Money: $2.5
 
 
-
 QUARTER = 0.25
 DIME = 0.10
 NICKLE = 0.05
@@ -191,13 +189,13 @@ money_in_machine = 0
 
 coffee_ordered = coffee_prefer()
 
-if_sufficient_resources = is_resources_sufficient(water_in_machine, milk_in_machine, coffee_in_machine, money_in_machine, coffee_ordered)
+if_sufficient_resources = is_resources_sufficient(water_in_machine, milk_in_machine, coffee_in_machine,
+                                                  money_in_machine, coffee_ordered)
 user_money = process_coins(if_sufficient_resources)
 amount_required = MENU[coffee_ordered]["cost"]
-money_to_return = round(amount_required-user_money,2)
+
 print(f"amount required : ${amount_required}\n"
       f"user has given : ${user_money}")
-money_in_machine,should_transaction_successful = do_transaction(money_in_machine)
+money_in_machine, should_transaction_successful = do_transaction(money_in_machine,)
 
-water_in_machine,milk_in_machine,coffee_in_machine = make_coffee(water_in_machine,milk_in_machine,coffee_in_machine)
-
+water_in_machine, milk_in_machine, coffee_in_machine = make_coffee(water_in_machine, milk_in_machine, coffee_in_machine)
