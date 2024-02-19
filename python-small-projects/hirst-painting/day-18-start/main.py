@@ -59,28 +59,44 @@ list_of_turtle_color = ["yellow", "gold", "orange", "red", "maroon", "violet",
 # TODO 3 : draw at random and random color
 
 def color_no():
-    return random.randint(1, 254)
+    r = random.randint(1, 254)
+    g = random.randint(1, 254)
+    b = random.randint(1, 254)
+    return (r, g, b)
 
+
+screen.colormode(255.0)
 
 direction = [360, 90, 180, 270]
 
-screen.colormode(255.0)
+# tim.speed(1000)
+# tim.pensize(10)
+# for _ in range(100):
+#     # r = float(color_no())
+#     # g = float(color_no())
+#     # b = float(color_no())
+#     r = color_no()
+#     g = color_no()
+#     b = color_no()
+#     print(r, g, b)
+#     tim.pencolor((r, g, b))
+#     tim_direction = choice(direction)
+#
+#
+#     tim.setheading(tim_direction)
+#     tim.heading()
+#     tim.fd(15)
+
+
+# TODO 4 . making a spirograph
+angle = 360
 tim.speed(1000)
-tim.pensize(10)
-for _ in range(100):
-    # r = float(color_no())
-    # g = float(color_no())
-    # b = float(color_no())
-    r = color_no()
-    g = color_no()
-    b = color_no()
-    tim_direction = choice(direction)
-    print(r,g,b)
-    tim.pencolor((r, g, b))
-
+while angle >= 0:
+    tim.pencolor(color_no())
+    tim.circle(120)
+    tim_direction = angle
     tim.setheading(tim_direction)
-    tim.heading()
-    tim.fd(15)
 
+    angle -= 10
 
 screen.exitonclick()
