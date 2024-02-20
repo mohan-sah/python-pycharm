@@ -33,25 +33,23 @@ def circle():
 
     tim.color(pic_color(), "black")
     tim.dot(20)
-    tim.penup()
+
     tim.fd(50)
     tim.fd(50)
-    tim.pendown()
 # screen.reset()
 #  10 BY 10 Canvas , size of dot = 20 and gap_between_dots = 50
-print(tim.pos())
 tim.penup()
+tim.hideturtle()
+tim.speed(100)
+print(tim.pos())
 tim.goto(-350, -290)
-tim.pendown()
 level_up = 0
 go_up = 60
 for level in range(11):
     for _ in range(8):
         circle()
     level_up += go_up
-    tim.penup()
     tim.goto(-350, -290 + level_up)
-    tim.pendown()
 
 
 
