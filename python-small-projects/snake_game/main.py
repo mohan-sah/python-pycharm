@@ -21,7 +21,7 @@ for position in starting_positions:
     segments.append(tim)
 
 game_is_on = True
-
+#push
 screen.update()
 while game_is_on:
     screen.update()
