@@ -38,9 +38,9 @@ screen.listen()
 screen.onkeypress(fun=move_forward, key="w")
 screen.onkeypress(fun=move_backward, key="s")
 
-screen.onkeypress(fun=turn_left, key="d")
+screen.onkeypress(fun=turn_left, key="a")
 
-screen.onkeypress(fun=turn_right, key="a")
+screen.onkeypress(fun=turn_right, key="d")
 
 screen.onkey(fun=clear_screen, key="c")
 
