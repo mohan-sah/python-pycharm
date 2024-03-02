@@ -25,6 +25,7 @@ def down(snake):
 def left(snake):
     snake.setheading(270)
 
+
 def right(snake):
     snake.setheading(360)
 
