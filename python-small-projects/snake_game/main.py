@@ -34,7 +34,7 @@ screen.onkeypress(fun=snake.right, key="Right")
 #     segments.append(tim)
 
 game_is_on = True
-#cha
+#ch
 screen.update()
 while game_is_on:
 
