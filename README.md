@@ -1,2 +1,2 @@
 # python-pycharm
-random python practice program dome in pycharm- jetbrains
+personel random pytho program done on pycharm repo- jetbrains
