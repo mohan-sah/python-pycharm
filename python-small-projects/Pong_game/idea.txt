@@ -1,0 +1,49 @@
+basic objects in pong game:
+
+    CLASSES:
+        1. create a screen
+        2. create and move a paddle
+        3. create another paddle
+        4. create the ball and make it move
+        5. detect collision with wall and bounce
+        6. detect collision with paddle
+        7. detect when paddle misses
+        8. keep score tracked
+
+
+    2 x bats: which will be snake like turtle
+        attributes:
+            fixed length
+            color
+        methods:
+            move up
+            move down
+            when in contacted with ball
+
+    ball:
+        attributes:
+            shape
+            color
+
+        methods:
+            travel in straight line
+            reflects when hit with bat
+            comes back to home if scored
+
+    score board:
+        attributes:
+            2 x individual on either side
+        methods:
+            +1 score if able to cross other bat
+
+
+    boundary:
+        attributes:
+            box for game
+            divider line
+        methods:
+            tells if ball crossed
+
+
+
+
