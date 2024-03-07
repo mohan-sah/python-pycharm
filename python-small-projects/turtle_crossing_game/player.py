@@ -21,7 +21,7 @@ class Player(Turtle):
     def up(self):
         self.forward(self.player_speed)
 
-    def finish_line(self):
+    def is_at_finish_line(self):
         if self.ycor() > self.finish_line_y:
             self.player_speed += INCR_DISTANCE_TRAVEL
             return True

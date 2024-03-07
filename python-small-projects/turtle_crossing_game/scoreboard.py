@@ -7,10 +7,10 @@ class Scoreboard(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.goto(-250, 230)
         self.level = 1
         self.penup()
         self.hideturtle()
+        self.goto(-250, 230)
         self.update_level()
 
     def update_level(self):

@@ -19,16 +19,18 @@ class CarManager(Turtle):
         self.all_car = []
 
     def generate_car(self):
-        spawn = randint(-250, 250)
-        new_car = Turtle()
-        new_car.penup()
-        new_car.color(choice(COLOR))
-        new_car.shape("square")
-        new_car.shapesize(stretch_wid=1, stretch_len=1.5)
-        new_car.setheading(180)
-        new_car.goto(350, spawn)
-
-        self.all_car.append(new_car)
+        more_cars = 6
+        should_generate = randint(1, more_cars)
+        if should_generate == 1:
+            spawn = randint(-250, 250)
+            new_car = Turtle("square")
+            new_car.shapesize(stretch_wid=1, stretch_len=1.5)
+            new_car.penup()
+            new_car.color(choice(COLOR))
+            new_car.setheading(180)
+            new_car.goto(350, spawn)
+            self.all_car.append(new_car)
+        more_cars -= 1
 
     def car_level_up(self):
         self.reset()

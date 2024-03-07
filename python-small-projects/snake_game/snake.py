@@ -6,6 +6,7 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
     # remember : class name in Pascal case
     def __init__(self):
@@ -24,15 +25,26 @@ class Snake:
             self.segments[seg_num].goto(new_x, new_y)
         self.head.forward(20)
 
-    def add_segment(self,position):
+    def add_segment(self, position):
         tim = Turtle("square")
         tim.color("white")
         tim.penup()
         tim.goto(position)
         self.segments.append(tim)
+
     def extend(self):
-        #adds new segment to snake
+        # adds new segment to snake
         self.add_segment(self.segments[-1].position())
+
+    def reset(self):
+        for seg in self.segments:
+            seg.goto(1000, 1000)
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]
+
+        # for teleport
+        # self.head.goto(0,0)
 
     def up(self):
         if self.head.heading() != DOWN:

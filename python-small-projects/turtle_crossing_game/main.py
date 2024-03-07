@@ -26,24 +26,24 @@ while game_is_on:
     screen.update()
 
     # generate cars for level
-    more_cars = 6
-    should_generate = random.randint(1, more_cars)
-    if should_generate == 1:
-        cars.generate_car()
+
+    cars.generate_car()
     cars.move()
 
     # reach finish line
-    if player.finish_line():
+    if player.is_at_finish_line():
         scoreboard.level_up()
         scoreboard.update_level()
         player.reset_player()
         cars.car_level_up()
-        more_cars -= 1
+
 
     # if car collide with player : game over
     for car in cars.all_car:
         if player.distance(car) < 20:
+            game_is_on = False
             scoreboard.game_over()
             cars.stop_moving()
+
 
 screen.exitonclick()

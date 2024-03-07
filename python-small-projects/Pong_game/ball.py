@@ -12,7 +12,6 @@ class Ball(Turtle):
         self.y_move = 10
         self.movespeed = 0.1
 
-
     def move(self):
         new_x = self.xcor() + self.x_move
 
@@ -25,7 +24,7 @@ class Ball(Turtle):
     def bounce_x(self):
         self.x_move *= -1
         # there is some glitch with ball when hitting the bat
-        #two type of speedup is used here
+        # two type of speedup is used here
         self.movespeed *= 0.09
         self.speedup()
 
