@@ -1,17 +1,27 @@
 # TODO: Create a letter using starting_letter.txt
 # for each name in invited_names.txt
 with open("Input/Names/invited_names.txt") as content_names:
-    names = content_names.readlines()
+    old_names = content_names.readlines()
+    names = []
+    for name in old_names:
+        names.append(name.strip())
     print(names)
-    people = []
-    for name in names:
-        name.strip("\\n")
-        people.append(name)
 
-    print(people)
 
 with open("Input/Letters/starting_letter.txt") as letter_content:
     letter = letter_content.read()
+    print(letter)
+
+for name in names:
+    new_letter = letter.replace("[name]", f"{name}")
+    with open(f"Output/ReadyToSend/letter_for_{name}.txt" , mode="w") as wishes:
+        wishes.write(new_letter)
+
+
+
+
+# with open("my_file.txt", mode="a") as file:
+#     file.write("\nho ho ho")
 
 
 
