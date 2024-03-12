@@ -31,6 +31,7 @@ state_names = states["state"].to_list()
 correct_answer = 0
 all_answered = True
 answered_list = []
+missed_list = []
 while all_answered:
 
     answer_state = screen.textinput(title=f"{correct_answer}/50 Guess the State",
@@ -40,7 +41,13 @@ while all_answered:
         # print(name, states[states.state == f"{name}"].x, states[states.state == f"{name}"].y)
         if answer_state == "exit":
             all_answered = False
+            for state in state_names:
+                if state.lower() not in answered_list:
+                    missed_list.append(state)
+            df = pd.DataFrame(missed_list)
+            df.to_csv("states_to_learn.csv")
             break
+
         if name.lower() == answer_state:
             current_state = states[states.state == name]
 
@@ -57,15 +64,7 @@ while all_answered:
                 correct_answer += 0
 
 # states_to_learn.csv  contain names user may want to look.
-for name in answered_list:
-    print(name)
-    if name in answered_list[0]:
-        state_names.pop()
-print(len(state_names))
 
-
-df = pd.DataFrame(state_names)
-df.to_csv("states_to_learn.csv")
 
 #
 # turtle.mainloop()
