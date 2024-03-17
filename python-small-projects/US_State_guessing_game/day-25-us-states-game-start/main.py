@@ -41,9 +41,7 @@ while all_answered:
         # print(name, states[states.state == f"{name}"].x, states[states.state == f"{name}"].y)
         if answer_state == "exit":
             all_answered = False
-            for state in state_names:
-                if state.lower() not in answered_list:
-                    missed_list.append(state)
+            missed_list = [state for state in state_names if state.lower() not in answered_list]
             df = pd.DataFrame(missed_list)
             df.to_csv("states_to_learn.csv")
             break
