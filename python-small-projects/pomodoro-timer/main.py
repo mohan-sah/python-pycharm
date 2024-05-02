@@ -1,3 +1,4 @@
+import math
 from tkinter import *
 from math import floor
 
@@ -11,31 +12,44 @@ FONT_NAME = "Courier"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
-reps = 0
+reps = 1
+timer = None
+
 
 # ---------------------------- TIMER RESET ------------------------------- # 
+def action_reset_timer():
+    global reps
+
+    window.after_cancel(timer)
+    timer_label.config(text="Timer", foreground=GREEN)
+    canvas.itemconfig(timer_text, text=f"00:00")
+    reps = 1
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def action_start_timer():
     global reps
+    global work_done
 
-    # work_sec = WORK_MIN * 60
-    # short_break_sec = SHORT_BREAK_MIN * 60
-    # long_break_sec = LONG_BREAK_MIN * 60
-    work_sec = 5
-    short_break_sec = 1
-    long_break_sec = 3
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
+    # for testing
+    # work_sec = 5
+    # short_break_sec = 1
+    # long_break_sec = 3
 
 
     if reps % 8 == 0 :
         count_down(long_break_sec)
         timer_label.config(text = "Break" , foreground=RED)
-    elif reps % 2 == 0:
+    elif reps % 2 == 0 :
         count_down(short_break_sec)
         timer_label.config(text="Break" , foreground=PINK)
+
     else:
         count_down(work_sec)
         timer_label.config(text="Work" , foreground=GREEN)
+
     reps += 1
 
 
@@ -53,8 +67,13 @@ def count_down(count):
         canvas.itemconfig(timer_text, text = f"{count_sec}")
     print(count)
     if count >= 0:
-        window.after(1000, count_down, count - 1)
+        global timer
+        timer = window.after(1000, count_down, count - 1)
     else:
+
+        if reps % 2 == 0:
+            work_done = math.floor(reps/2)
+            tick.config(text=f"{checkmark_text * work_done}")
         action_start_timer()
 
 
@@ -86,15 +105,12 @@ start_button.grid(column = 0, row =2)
 
 
 #Button
-def action_reset():
-    print("Do something")
-
 #calls action() when pressed
-reset_button = Button(text="RESET", command=action_reset )
+reset_button = Button(text="RESET", command=action_reset_timer)
 reset_button.grid(column = 2, row =2)
 
 #Labels
-tick = Label(text=checkmark_text, font=(FONT_NAME, 24,"bold"), foreground=GREEN ,background = YELLOW)
+tick = Label(text='', font=(FONT_NAME, 24,"bold"), foreground=GREEN ,background = YELLOW)
 tick.grid(column = 1, row = 3)
 
 
