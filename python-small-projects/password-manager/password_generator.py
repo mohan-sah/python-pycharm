@@ -36,13 +36,14 @@ class PasswordGenerator(object):
 
     def generate(self):
         password_list = []
-        for letter in range(0, self.nr_letters):
-            password_list += random.choice(self.letters)
-        for symbol in range(0, self.nr_symbols):
-            password_list += random.choice(self.symbols)
-        for number in range(0, self.nr_numbers):
-            password_list += random.choice(self.numbers)
-        # print(f"Your password is {password_list}")
+        password_list  = [random.choice(self.letters) for letter in range(0,self.nr_letters)]
+        # for letter in range(0, self.nr_letters):
+        #     password_list += random.choice(self.letters)
+        password_list += [random.choice(self.symbols) for symbol in range(0,self.nr_symbols)]
+        # for symbol in range(0, self.nr_symbols):
+        #     password_list += random.choice(self.symbols)
+        password_list += [random.choice(self.numbers) for number in range(0, self.nr_numbers)]
+        print(f"Your password is {password_list}")
         random.shuffle(password_list)
         self.password_list = ''.join(password_list)
         return self.password_list
