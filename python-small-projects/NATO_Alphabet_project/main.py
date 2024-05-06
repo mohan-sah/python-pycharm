@@ -43,7 +43,6 @@ def generate_phonetic():
     print(word_list)
     try:
         phonetic_code = [dict_nato[item] for item in word_list ]
-
     except KeyError:
         print("Sorry , only the letter in alphabet please!")
         generate_phonetic()
