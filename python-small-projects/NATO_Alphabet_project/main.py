@@ -35,17 +35,20 @@ print(dict_nato)
 
 #TODO 2. Create a list of the phonetic code words from a word that the user inputs.
 
-user_input = input("Enter a word: ").upper()
-word_list = [item for item in user_input]
-phonetic_code = []
-print(word_list)
-try:
-    phonetic_code = [dict_nato[item] for item in word_list ]
-except KeyError:
+def generate_phonetic():
+    """give a list of phonetic for every letter in string as input"""
+    user_input = input("Enter a word: ").upper()
+    word_list = [item for item in user_input]
+    phonetic_code = []
+    print(word_list)
+    try:
+        phonetic_code = [dict_nato[item] for item in word_list ]
+
+    except KeyError:
         print("Sorry , only the letter in alphabet please!")
-        user_input = input("Enter a word: ").upper()
-        word_list = [item for item in user_input]
-else:
-    phonetic_code = [dict_nato[item] for item in word_list]
-    print(phonetic_code)
+        generate_phonetic()
+    else:
+        print(phonetic_code)
+
+generate_phonetic()
 
