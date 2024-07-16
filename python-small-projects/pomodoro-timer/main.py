@@ -24,6 +24,7 @@ def action_reset_timer():
     timer_label.config(text="Timer", foreground=GREEN)
     canvas.itemconfig(timer_text, text=f"00:00")
     reps = 1
+    tick.config(text='')
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def action_start_timer():
@@ -33,7 +34,7 @@ def action_start_timer():
     work_sec = WORK_MIN * 60
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
-    # for testing
+    ## for testing
     # work_sec = 5
     # short_break_sec = 1
     # long_break_sec = 3
