@@ -19,12 +19,7 @@ RECEIVE_EMAIL = "mohansahsmtp@yahoo.com"
 MY_PASS = ""
 try:
     with open(file="../passkey.txt") as passkey:
-
-        MY_PASS = passkey.read() # "owsf zfcf emwg lsre" <- need passkey from sender's mail
-        print(type(MY_PASS))
-        MY_PASS = "odsfzjcfemoglsxe"
-        print(type(MY_PASS))
-        print(MY_PASS)
+        MY_PASS = passkey.read() # "owsf zfcf emwg lsre" <- need passkey from sender's mai
 except FileNotFoundError:
     print("need a txt file with passkey: "
           "which look like this : 'owsf zfcf emwg lsre' \n"
