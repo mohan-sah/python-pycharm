@@ -18,7 +18,6 @@ parameters = {
     "appid": APIkey,
     "cnt": 4
 }
-
 response = requests.get("https://api.openweathermap.org/data/2.5/forecast", params=parameters)
 response.raise_for_status()
 
