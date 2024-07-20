@@ -1,6 +1,6 @@
 import requests
 from twilio.rest import Client
-from support import Support
+from sup import Support
 
 environ = Support()
 LATITUDE = float(12.971599)
