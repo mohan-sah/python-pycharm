@@ -1,5 +1,5 @@
 import math
-
+from support import Support
 import requests
 from datetime import datetime as dt
 from datetime import timedelta
@@ -11,14 +11,15 @@ COMPANY_NEWS_KEYWORD = "Tesla"
 TICKER = ""
 NEWS = ""
 
+environ = Support()
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
-stock_API_key = "70FTQCNERD63NSLV"
-news_API_key = "110830e08d23428e9841638123b58fbe"
+stock_API_key = environ.stock_API_key
+news_API_key = environ.news_API_key
 
-AuthToken = "5ae3d74913260604ea2ccc67cf860d08"
-account_sid = 'AC0b2cb719c76ef32a1470c79d02480c63'
+AuthToken = environ.AuthToken
+account_sid = environ.account_sid
 auth_token = AuthToken
 BODY = f"{TICKER}\n"
 
