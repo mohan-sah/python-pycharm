@@ -12,7 +12,6 @@ AuthToken= environ.AuthToken
 account_sid = environ.account_sid
 auth_token = AuthToken
 
-
 parameters = {
     "lat" : LATITUDE,
     "lon" : LONGITUDE,
