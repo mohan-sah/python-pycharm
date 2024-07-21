@@ -60,7 +60,7 @@ def stock_price():
     # day_before_yesterday_close = float(data["Time Series (Daily)"][date_day_before_yesterday]["4. close"])
 
     data_list = [value for (key,value) in data.items()]
-    yesterday_close = data_list[0]["4. close"]
+    yesterday_close = float(data_list[0]["4. close"])
     day_before_yesterday_close = float(data_list[1]["4. close"])
 
     stock_diff = yesterday_close - day_before_yesterday_close
@@ -106,6 +106,7 @@ def get_news() -> str:
     # return NEWS
     formatted_article = [f"Headline: {article['title']}\nBrief: {article['description']}" for article in articles]
     NEWS = '\n'.join(formatted_article)
+    return NEWS
 
 
 ## STEP 3: Use twilio.com/docs/sms/quickstart/python
@@ -144,5 +145,6 @@ Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and 
 """
 stock_price()
 # get_news()
+# send_message()
 
 

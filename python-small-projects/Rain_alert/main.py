@@ -40,15 +40,15 @@ if will_rain: #sms
     )
     print(message.status)
 
-if will_rain: #whatsapp
-    client = Client(account_sid, auth_token)
-
-    message = client.messages.create(
-        from_='whatsapp:+14155238886',
-        body="It's going to rain today . Don't forget to carry ☂️",
-        to = 'whatsapp:+919141143670'
-    )
-    print(message.status)
+# if will_rain: #whatsapp
+#     client = Client(account_sid, auth_token)
+#
+#     message = client.messages.create(
+#         from_='whatsapp:+14155238886',
+#         body="It's going to rain today . Don't forget to carry ☂️",
+#         to = 'whatsapp:+919141143670'
+#     )
+#     print(message.status)
 
 
 
