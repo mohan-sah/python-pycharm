@@ -1,0 +1,20 @@
+            {
+            "exercises": [
+                  {
+                        "tag_id": 317,
+                        "user_input": "ran",
+                        "duration_min": 100,
+                        "met": 9.8,
+                        "nf_calories": 1208.67,
+                        "photo": {
+                              "highres": "https://d2xdmhkmkbyw75.cloudfront.net/exercise/317_highres.jpg",
+                              "thumb": "https://d2xdmhkmkbyw75.cloudfront.net/exercise/317_thumb.jpg",
+                              "is_user_uploaded": false
+                        },
+                        "compendium_code": 12050,
+                        "name": "running",
+                        "description": null,
+                        "benefits": null
+                  }
+            ]
+      }
