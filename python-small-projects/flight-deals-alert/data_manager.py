@@ -39,8 +39,7 @@ class DataManager:
     def edit_exiting_record(self):
         for city in self.datarow:
             self.parameters = {
-                "sheet1": {"city": city["city"],
-                           "iataCodes": city["iataCodes"],
+                "sheet1": {"iataCodes": city["iataCodes"],
                            }
             }
             self.response = requests.put(url=f"{SHEETY_ENDPOINT}/{city['id']}", headers=headers, json=self.parameters)

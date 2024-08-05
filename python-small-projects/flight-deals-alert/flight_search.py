@@ -65,14 +65,13 @@ class FlightSearch:
             "Authorization": f"Bearer {self._get_new_token()}"
         }
         parameters = {
-            "originLocationCode": "BLR",
-            "destinationLocationCode": "PAR",
+            "originLocationCode": origin_city_code,
+            "destinationLocationCode": destination_city_code,
             "departureDate" : from_time,
             "returnDate" : to_time,
             "adults": 1,
             "nonStop":"true",
             "currencyCode" : "INR",
-            "maxPrice" : PRICE,
             "max" : 10
 
         }
@@ -83,23 +82,6 @@ class FlightSearch:
 
 
 
-flight_search = FlightSearch()
-flight_search.check_flight("BLR","PAR",None,None)
 
-
-
-
-
-
-
-
-
-# type             : amadeusOAuth2Token
-# username         : mohansah944@gmail.com
-# application_name : Flight_Price_lowest
-# client_id        : yf58gGSLCYDtBjq2SMKQlcUZb62EvUG
-# token_type       : Bearer
-# access_token     : DjaSzucggfU2LCG2Brix5F3TtZ4O
-# expires_in       : 1799
 
 
