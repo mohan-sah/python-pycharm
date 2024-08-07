@@ -53,10 +53,8 @@ for destination in sheet_data:
     time.sleep(2)
 
     if cheapest_flight.price != "N/A" and cheapest_flight.price < destination["lowestPrice"]:
-        print("inside3")
         message_body=f"Low price alert! Only EUR{cheapest_flight.price} to fly from {cheapest_flight.origin_airport} to {cheapest_flight.destination_airport}, on {cheapest_flight.out_date} until {cheapest_flight.return_date}."
         for emails in data_manager.get_customer_emails():
-            print("inside1")
             notification_manager.send_emails(message_body = message_body, receive_mail=emails)
         print(f"Lower price flight found to {destination['city']}!")
         # notification_manager.send_sms(

@@ -65,7 +65,7 @@ class NotificationManager:
                   "and you will get from sender's account- security-generate passkey")
 
         with smtplib.SMTP("smtp.gmail.com") as connection:
-            print("inside2")
+
             connection.starttls()
             connection.login(user=MY_EMAIL, password=MY_PASS)
             connection.sendmail(from_addr=MY_EMAIL,to_addrs=RECEIVE_EMAIL,msg=f"Subject: FLIGHT CLUB \n\n{MSG}" )
