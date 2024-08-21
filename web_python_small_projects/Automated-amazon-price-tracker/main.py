@@ -14,16 +14,22 @@ amazon_web_page = response.text
 soup = BeautifulSoup(amazon_web_page,features="html.parser")
 # print(soup.prettify())
 # print(soup.title.text)
+##price
 price = float
 price = soup.find(name= "span", class_ ="a-price aok-align-center reinventPricePriceToPayMargin priceToPay").get_text().split("$")[1]
 #price.replace(" $", "")
 print(price)
 price = float(price)
-product_title = soup.find(name="span", id = "productTitle").get_text()
+## product name and link
+product_title = soup.find(name="span", id = "productTitle").text
 print(product_title)
 link_to_buy = WEBSITE_URL
 
+## product image
+product_image = soup.find(name="div", id ="imgTagWrapperId")
+print(product_image)
 
+#
 # when price below a certain value, to send an email to yourself.
 # In the email, include
 # 1.the title of the product,
