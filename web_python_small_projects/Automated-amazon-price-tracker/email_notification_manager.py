@@ -45,7 +45,9 @@ class EmailNotificationManager:
         html_content = f"""
         <html>
           <body>
-            <p>{product_title.strip()} is now {current_price}, buy at <a href="{link_to_buy}">this link</a>.</p>
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHlkZGI4czV3eHR2Zng4ejA4Z2V6cjQ2NWpyMjQ5Y3UyNW9haHk1MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Dmz31oe42yacpyVDWU/giphy.gif" alt="Animated GIF" />
+
+            <p>{product_title.strip()} is now {current_price},💲👇⬇️📉 buy at <a href="{link_to_buy}">this link</a>.</p>
             <p>Check out the image below:</p>
             <img src="https://appbrewery.github.io/instant_pot/assets/images/71QFLNzx2-L._AC_SX679_.jpg" width="500" height="500" alt="Instant Pot Image" />
           </body>
