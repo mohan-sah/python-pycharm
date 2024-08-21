@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+
 import requests
 from email_notification_manager import EmailNotificationManager
 
@@ -9,25 +10,29 @@ TRIGGER_PRICE = 150
 email_manager = EmailNotificationManager()
 
 response = requests.get(url=WEBSITE_URL)
-amazon_web_page = response.text
+html = response.text
 
-soup = BeautifulSoup(amazon_web_page,features="html.parser")
-# print(soup.prettify())
-# print(soup.title.text)
+soup = BeautifulSoup(html,"lxml")
+                                            # print(soup.prettify())
+                                            # print(soup.title.text)
 ##price
 price = float
 price = soup.find(name= "span", class_ ="a-price aok-align-center reinventPricePriceToPayMargin priceToPay").get_text().split("$")[1]
-#price.replace(" $", "")
+                                                #price.replace(" $", "")
 print(price)
 price = float(price)
 ## product name and link
 product_title = soup.find(name="span", id = "productTitle").text
-print(product_title)
+# img_tag = soup.select_one("div img #landingImage")
+
 link_to_buy = WEBSITE_URL
 
 ## product image
-product_image = soup.find(name="div", id ="imgTagWrapperId")
-print(product_image)
+#
+# product_image_url = soup.find(name="div", id ="imgTagWrapperId").get('src')
+# product_image = soup.find(name="div", id ="imgTagWrapperId")
+# print(product_image)
+# print(product_image_url)
 
 #
 # when price below a certain value, to send an email to yourself.
@@ -36,6 +41,7 @@ print(product_image)
 # 2. the current price ,
 # 3. a link to buy the product.
 if price < TRIGGER_PRICE:
-    email_manager.send_email(product_title = product_title, current_price = price, link_to_buy = link_to_buy)
+    email_manager.send_html_email(product_title=product_title, current_price=price, link_to_buy=link_to_buy)
+    # email_manager.send_email(product_title = product_title, current_price = price, link_to_buy = link_to_buy)
 
 

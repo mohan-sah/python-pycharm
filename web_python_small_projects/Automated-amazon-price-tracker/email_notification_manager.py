@@ -28,3 +28,42 @@ class EmailNotificationManager:
             connection.sendmail(to_, from_, fmt.format(to_, from_, subject, msg).encode('utf-8'))
             print(f"sended to {receive_email}: {MESSAGE}")
 
+    def send_html_email(self, receive_email="mohansahsmtp@gmail.com", product_title = "product_title", current_price = "current_price", link_to_buy = "link_to_buy"):
+        import smtplib
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
+        from email.mime.base import MIMEBase
+        from email import encoders
+
+        # Example values
+        product_title = product_title
+        current_price = "$99.99"
+        link_to_buy = link_to_buy
+        receive_email = receive_email
+
+        # HTML content for the email
+        html_content = f"""
+        <html>
+          <body>
+            <p>{product_title.strip()} is now {current_price}, buy at <a href="{link_to_buy}">this link</a>.</p>
+            <p>Check out the image below:</p>
+            <img src="https://appbrewery.github.io/instant_pot/assets/images/71QFLNzx2-L._AC_SX679_.jpg" width="500" height="500" alt="Instant Pot Image" />
+          </body>
+        </html>
+        """
+
+        # Email setup
+        msg = MIMEMultipart()
+        msg['From'] = self.MY_EMAIL
+        msg['To'] = receive_email
+        msg['Subject'] = 'Amazon Price Tracker'
+
+        # Attach the HTML content
+        msg.attach(MIMEText(html_content, 'html'))
+
+        # Send the email
+        with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+            connection.starttls()
+            connection.login(user=self.MY_EMAIL, password=self.MY_PASS)
+            connection.sendmail(from_addr=self.MY_EMAIL, to_addrs=receive_email, msg=msg.as_string())
+            print(f"Sent to {receive_email}: {product_title.strip()} is now {current_price}, buy at {link_to_buy}")
