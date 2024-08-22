@@ -51,8 +51,5 @@ while True:#not action.move_by_offset(0,0)
 
 
 
-
-
-
 time.sleep(20)
 driver.quit()
