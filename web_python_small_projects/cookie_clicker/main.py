@@ -23,17 +23,35 @@ time.sleep(3)
 # time.sleep(2)
 cookie = driver.find_element(by=By.ID, value="bigCookie")
 
-start_time = time.time()
+start_time = time_to_check = time.time()
 timeout = 10
 check_upgrade_time = 5
 store = driver.find_element(by=By.ID, value="products")
 
 while True:#not action.move_by_offset(0,0)
-
+    #cookie auto upgrade achieved.will stop after 5 mins and show final result
+will stop after 5 mins and show final result
     cookie.click()
     if  time.time() - start_time >check_upgrade_time:
         start_time = time.time()
-        print("pass 5")
+
+        products = store.find_elements(by=By.CSS_SELECTOR, value=".enabled")
+        product_list = []
+        for product in products:
+            product_list.append(product)
+        print(product_list)
+        buy_this = product_list[-1]
+        buy_this.click()
+        print(f"bought {buy_this.text}")
+    if time.time()-time_to_check > 300:
+        print(driver.find_element(by=By.XPATH, value='//*[@id="cookies"]').text)
+        break
+
+
+
+
+
+
 
 
 
