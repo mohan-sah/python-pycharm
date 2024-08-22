@@ -30,7 +30,6 @@ store = driver.find_element(by=By.ID, value="products")
 
 while True:#not action.move_by_offset(0,0)
     #cookie auto upgrade achieved.will stop after 5 mins and show final result
-will stop after 5 mins and show final result
     cookie.click()
     if  time.time() - start_time >check_upgrade_time:
         start_time = time.time()
