@@ -43,7 +43,7 @@ password_field.send_keys(SIGNIN_PASSWORD)
 sign_in_btn2.click()
 
 #for captcha
-# input("Press Enter when you have solved the Captcha")
+input("Press Enter when you have solved the Captcha")
 
 time.sleep(1)
 #job apply process
@@ -104,8 +104,8 @@ for question, answer in questions_and_answers.items():
         print(f"Unable to find or interact with the question: '{question}'")
 
 # Submit the form if necessary
-# submit_button = driver.find_element(By.XPATH, "//button[@aria-label='Review']")
-# submit_button.click()
+submit_button = driver.find_element(By.XPATH, "//button[@aria-label='Review']")
+submit_button.click()
 
 
 
