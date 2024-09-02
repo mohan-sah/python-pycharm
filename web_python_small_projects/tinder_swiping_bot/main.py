@@ -16,6 +16,9 @@ URL = "https://tinder.com/"
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_experimental_option("detach", True)
+chrome_options.add_argument("disable-infobars")
+chrome_options.add_argument("--lang=en")
+chrome_options.add_argument(f"--user-data-dir={os.getcwd()}/.data")
 chrome_options.add_argument("--force-device-scale-factor=0.9")
 
 
@@ -66,6 +69,8 @@ try:
 except StaleElementReferenceException:
     sleep(4)
     fb_confirm_element = driver.find_element(by=By.CSS_SELECTOR, value='div span[dir="auto"] span').click()
+except NoSuchElementException:
+    driver.close()
 handles = driver.window_handles
 base_window = handles[0]
 driver.switch_to.window(base_window)
