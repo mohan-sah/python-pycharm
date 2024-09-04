@@ -97,7 +97,6 @@ class InternetSpeedTwitterBot:
         post_content.send_keys( Keys.CONTROL, Keys.ENTER)
         time.sleep(3)
 
-        time.sleep(50)
         self.driver.close()
 
 
