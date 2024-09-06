@@ -72,6 +72,11 @@ class InstaFollower:
             sleep(3)
         except NoSuchElementException:
             print("login page not found")
+
+    def follow(self):
+        follow_button  = self.driver.find_element(by=By.XPATH, value='//button[text()="Follow"]')
+        if follow_button.text == "Follow":
+            follow_button.click()
     def find_followers(self):
         URL = f"https://www.instagram.com/{SIMILAR_ACCOUNT}/"
         self.driver.get(URL)
@@ -83,28 +88,33 @@ class InstaFollower:
         print("follower btn clicked")
         sleep(3)
         i = 0
-        modal_xpath  = "/html/body/div[7]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
-        modal_xpath  = "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]"
-        modal_xpath =  "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
-        modal_xpath = ""
+
         child = self.driver.find_element(by=By.CSS_SELECTOR, value='div[style="height: auto; overflow: hidden auto;"]')
         modal = child.find_element(By.XPATH, '..')
 
-        # Optionally, if you need to check or interact with the parent element
+        # check parent element
         print(modal.get_attribute('outerHTML'))
         while i<10:
             sleep(2)
-            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            if i % 9 == 0:
+                self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            follow_text = modal.find_element(by=By.XPATH, value='//div[text()="Follow"]')
+            print(follow_text.text)
+            follow_button = follow_text.find_element(by=By.XPATH, value='../../..')
 
+            if follow_text.text == "Follow":
+                follow_button.click()
             i += 1
             print(i)
-    def follow(self):
-        sleep(800)
-        pass
+
+
+
+
+
 
 
 if __name__ == "__main__":
     bot  = InstaFollower()
     # bot.login()
     bot.find_followers()
-    bot.follow()
+    # bot.follow()
