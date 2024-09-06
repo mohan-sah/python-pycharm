@@ -81,27 +81,20 @@ class InstaFollower:
         follower_btn = self.driver.find_element(by=By.XPATH, value='//a[contains(text(), " followers")]')
         follower_btn.click()
         print("follower btn clicked")
+        sleep(3)
         i = 0
+        modal_xpath  = "/html/body/div[7]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
+        modal_xpath  = "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]"
+        modal_xpath =  "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
+        modal_xpath = ""
+        child = self.driver.find_element(by=By.CSS_SELECTOR, value='div[style="height: auto; overflow: hidden auto;"]')
+        modal = child.find_element(By.XPATH, '..')
 
-        pop_up_window = WebDriverWait(
-            self.driver, 2).until(EC.element_to_be_clickable(
-            (By.XPATH, "/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]")))
-
-        while i<5:
+        # Optionally, if you need to check or interact with the parent element
+        print(modal.get_attribute('outerHTML'))
+        while i<10:
             sleep(2)
-            # follower_dialog = self.driver.find_element(by=By.CSS_SELECTOR , value= 'div[role="dialog"]')
-            # scroll_script = """
-            #     var element = arguments[0];
-            #     element.scrollTop = element.scrollHeight;
-            # """
-            # self.driver.execute_script(scroll_script,follower_dialog)
-
-
-            # Scroll till Followers list is there
-
-            self.driver.execute_script(
-                    'arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;',
-                    pop_up_window)
+            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
 
             i += 1
             print(i)
