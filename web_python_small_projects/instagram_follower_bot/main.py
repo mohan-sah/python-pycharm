@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from dotenv import load_dotenv
+from selenium.common import exceptions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -73,10 +74,30 @@ class InstaFollower:
         except NoSuchElementException:
             print("login page not found")
 
-    def follow(self):
-        follow_button  = self.driver.find_element(by=By.XPATH, value='//button[text()="Follow"]')
-        if follow_button.text == "Follow":
-            follow_button.click()
+    def follow(self, modal):
+
+        while True:
+            try:
+                follow_text = modal.find_element(by=By.XPATH, value='//div[text()="Follow"]')
+                print(follow_text.text)
+                follow_button = follow_text.find_element(by=By.XPATH, value='../../..')
+
+                if follow_text.text == "Follow":
+                    follow_button.click()
+                    print("account followed")
+                    break
+
+            except NoSuchElementException:
+                try:
+                    self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+                    sleep(4)
+                except Exception as e:
+                    print("unable to scroll further")
+                    break
+
+
+
+
     def find_followers(self):
         URL = f"https://www.instagram.com/{SIMILAR_ACCOUNT}/"
         self.driver.get(URL)
@@ -94,22 +115,14 @@ class InstaFollower:
 
         # check parent element
         print(modal.get_attribute('outerHTML'))
-        while i<10:
-            sleep(2)
+        while i<25:
+            sleep(3)
+            self.follow(modal=modal)
             if i % 9 == 0:
                 self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
-            follow_text = modal.find_element(by=By.XPATH, value='//div[text()="Follow"]')
-            print(follow_text.text)
-            follow_button = follow_text.find_element(by=By.XPATH, value='../../..')
-
-            if follow_text.text == "Follow":
-                follow_button.click()
+                sleep(3)
             i += 1
             print(i)
-
-
-
-
 
 
 
