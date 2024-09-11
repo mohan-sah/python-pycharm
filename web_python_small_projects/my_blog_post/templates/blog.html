@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blog_with_api</title>
+</head>
+<body>
+    <h1>random link: {{num}}</h1>
+    {%for post in all_blog_post:%}
+        <h1>{{post["title"]}}</h1>
+        <h3>{{post["subtitle"]}}</h3>
+    {% endfor %}
+    <hr>
+    <hr>
+        {%for post in all_blog_post:%}
+            {%if post["id"] == 2 :%}
+                <h1>{{post["title"]}}</h1>
+                <h3>{{post["subtitle"]}}</h3>
+            {%endif%}
+         {% endfor %}
+</body>
+</html>
