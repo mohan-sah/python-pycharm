@@ -13,7 +13,8 @@
     <hr>
     <hr>
         {%for post in all_blog_post:%}
-            {%if post["id"] == 2 :%}
+            {%if post["id"] == 1 :%}
+                <h1>That post has been</h1>
                 <h1>{{post["title"]}}</h1>
                 <h3>{{post["subtitle"]}}</h3>
             {%endif%}

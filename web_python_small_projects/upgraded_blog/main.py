@@ -22,9 +22,9 @@ def about():
 def contact():
     return render_template('contact.html')
 
-@app.route('/post')
-def post():
-    return render_template('post.html')
+@app.route('/post/<int:id>')
+def post(id):
+    return render_template('post.html',post_id=id, all_blog_post = response)
 
 
 if __name__ == '__main__':
