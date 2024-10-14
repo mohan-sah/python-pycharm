@@ -2,6 +2,12 @@
 {% extends 'base.html'%}
 
 {%block title%}Success{%endblock%}
+{%block styling%}
+{{super()}}
+h1{
+color: green;
+}
+{%endblock%}
 {%block content%}
 		<h1>Top Secret </h1>
 		<iframe src="https://giphy.com/embed/Ju7l5y9osyymQ" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
