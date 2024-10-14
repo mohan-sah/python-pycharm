@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Page Sound on Hover Example</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        #hoverDiv {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(98, 0, 234, 0.8); /* Semi-transparent background */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute; /* Cover full page */
+            top: 0;
+            left: 0;
+            transition: background-color 0.3s;
+        }
+
+        #hoverDiv:hover {
+            background-color: rgba(55, 0, 179, 0.8); /* Darker on hover */
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1; /* Ensure it's above the hoverDiv */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: rgba(55, 0, 179, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: rgba(98, 0, 234, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div id="hoverDiv">Hover Anywhere on the Page!</div>
+    <div class="container">
+        <h1>Top Secret</h1>
+        <iframe src="https://giphy.com/embed/Ju7l5y9osyymQ" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <p><a href="https://giphy.com/gifs/rick-astley-Ju7l5y9osyymQ">via GIPHY</a></p>
+        <button id="playButton">Play Sound</button>
+    </div>
+
+    <audio id="sound" src="{{ url_for('static', filename='Rick-Roll-Sound-Effect.mp3') }}" preload="auto" loop></audio>
+
+    <script>
+        const audio = document.getElementById('sound');
+        const hoverDiv = document.getElementById('hoverDiv');
+        const playButton = document.getElementById('playButton');
+
+        // Function to play audio
+        function playAudio() {
+            audio.currentTime = 0; // Reset to start
+            audio.play().catch(function(error) {
+                console.log("Playback failed:", error);
+            });
+        }
+
+        // Play audio on hover
+        hoverDiv.addEventListener('mouseenter', playAudio);
+
+        // Pause audio when mouse leaves
+        hoverDiv.addEventListener('mouseleave', () => {
+            audio.pause(); // Pause the audio
+        });
+
+        // Play audio on button click
+        playButton.addEventListener('click', playAudio);
+        const intervalId = setInterval(() => {
+    document.getElementById('playButton').click();
+}, 3000);
+
+    </script>
+</body>
+</html>
