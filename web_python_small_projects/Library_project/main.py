@@ -135,11 +135,13 @@ def edit_rating(book_id):
             return redirect(url_for('home'))
 
 
-@app.route('/<int:book_id>',methods = ["GET","POST"])
-def delete_book(book_id):
-    book_to_delete = db.get_or_404(Books, book_id)
-    db.session.delete(book_to_delete)
-    db.session.commit()
+@app.route('/delete',methods = ["GET","POST"])
+def delete_book():
+    book_id = request.args.get('book_id')
+    if book_id:
+        book_to_delete = db.get_or_404(Books, book_id)
+        db.session.delete(book_to_delete)
+        db.session.commit()
     return redirect(url_for("home"))
 
 
