@@ -128,7 +128,6 @@ def add():
         else:
 
             title = request.form['title']
-            print(title)
             flash('Movie title added successfully!', 'success')
             return redirect(url_for('select',title =title))
 
@@ -136,7 +135,6 @@ def add():
 
 @app.route('/edit/<edit_title>' , methods = ['POST',"GET"])
 def edit(edit_title):
-    print('edit_title : ',edit_title)
     edit_form = MovieEditForm()
     movie_to_edit = Movie.query.filter_by(title = edit_title).first_or_404()
     if not movie_to_edit:
@@ -163,7 +161,6 @@ def edit(edit_title):
 
 @app.route('/select/<title>',methods = ['POST',"GET"])
 def select(title):
-    print('enter select', title)
     data = movie.get_movie_by_name(f"{title}")
     if data['total_results']== 0 or data is None:
         return "<h1>No Such Movie Found<h1>"
