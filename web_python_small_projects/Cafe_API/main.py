@@ -134,7 +134,6 @@ def random():
 
                          })
 
-
 @app.route("/all", methods=["GET", "POST"])
 def get_all_cafes():
     return jsonify(cafes=fetch_all_cafe())
