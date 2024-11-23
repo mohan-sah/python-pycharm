@@ -139,7 +139,6 @@ def random():
 def get_all_cafes():
     return jsonify(cafes=fetch_all_cafe())
 
-
 @app.route("/search", methods=["GET", "POST"])
 def get_cafe_at_location():
     loc = request.args.get("loc")
