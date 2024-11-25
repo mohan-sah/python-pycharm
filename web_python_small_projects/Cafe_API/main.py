@@ -23,12 +23,9 @@ This will install the packages from requirements.txt for this project.
 '''
 
 app = Flask(__name__)
-
-
 # CREATE DB
 class Base(DeclarativeBase):
     pass
-
 
 # Connect to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
