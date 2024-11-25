@@ -1,2 +1,2 @@
 # python-pycharm
-personel random pytho program done on pycharm repo- jetbrains
+Personel Learning and Experiment projects 
