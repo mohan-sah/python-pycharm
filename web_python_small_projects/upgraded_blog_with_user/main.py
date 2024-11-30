@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date,datetime
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -93,9 +93,11 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     text: Mapped[int] = mapped_column(Text, nullable=False)
+    posted_time= db.Column(db.DateTime,nullable = False)
+    # ***************Child Relationship for User*************#
     comment_author = relationship('User', back_populates='comments')
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
-    # ***************Child Relationship*************#
+    # ***************Child Relationship for BlogPost*************#
     parent_post = relationship("BlogPost", back_populates='comments')
     post_id: Mapped[int] = mapped_column(Integer, db.ForeignKey('blog_posts.id'))
 
@@ -104,25 +106,56 @@ with app.app_context():
     db.create_all()
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(User, user_id)
+
+
 def admin_only(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
         if not current_user.is_authenticated or not current_user.is_admin:
             abort(403)
         return function(*args, **kwargs)
-
     return wrapper
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return db.get_or_404(User, user_id)
+def only_commenter(function):
+    @wraps(function)
+    def check(*args, **kwargs):
+        user = db.session.execute(db.select(Comment).where(Comment.author_id == current_user.id)).scalar()
+        if not current_user or not current_user.is_authenticated or current_user.id != user.author_id:
+            return abort(403)
+        return function(*args, **kwargs)
+
+    return check
 
 
 #  Use Werkzeug to hash the user's password when creating a new user.
 def hashed_and_salted_password(password):
     return generate_password_hash(password, method="pbkdf2:sha256", salt_length=8)
 
+def calculate_time_difference(posted_time):
+    current_time = datetime.now()
+    time_difference = current_time- posted_time
+
+    # Extract days , hours, and minute
+    days = time_difference.days
+
+    # the divmod divide the time_difference.seconds by 3600 and then save the answer as a tuple, with the whole number and remainder,
+    # as hours and remainder(minutes) respectively. the same as the second tuple , onlu that the remainder(_) which is the seconds is not needed.
+
+    hours,remainder = divmod(time_difference.seconds,3600)
+    minutes,_ = divmod(remainder,60)
+
+    if days > 0:
+        return f"{days} days ago"
+    elif hours > 0:
+        return f"{hours} hours ago"
+    elif minutes > 0:
+        return f"{minutes} minutes ago"
+    else:
+        return "just now"
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -194,14 +227,14 @@ def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
     comment_on_blog_post = db.session.execute(
         db.Select(Comment).where(Comment.post_id == requested_post.id)).scalars().all()
-    print(comment_on_blog_post)
     if current_user.is_authenticated:
         if form.validate_on_submit():
             # save comment
             new_comment = Comment(
                 text=cleanify(form.comment.data),
                 comment_author=current_user,
-                parent_post=requested_post
+                parent_post=requested_post,
+                posted_time = datetime.now()
             )
             db.session.add(new_comment)
             db.session.commit()
@@ -209,9 +242,24 @@ def show_post(post_id):
     else:
         flash("Register Here to Comment!")
         return redirect(url_for('register'))
+    the_time = []
+    for comments_time in comment_on_blog_post:
+        print(comments_time.posted_time)
+        time = calculate_time_difference(comments_time.posted_time)
+        the_time.append(time)
+    print(the_time)
+
+    return render_template("post.html", post=requested_post, form=form, comments=comment_on_blog_post,posted_time = the_time)
 
 
-    return render_template("post.html", post=requested_post, form=form,comments=comment_on_blog_post)
+#  Allow Commented users to delete comment from posts
+@app.route("/delete/comment/<int:comment_id>/<int:post_id>")
+@only_commenter
+def delete_comment(post_id, comment_id):
+    post_to_delete = db.get_or_404(Comment, comment_id)
+    db.session.delete(post_to_delete)
+    db.session.commit()
+    return redirect(url_for('show_post', post_id=post_id))
 
 
 #  Use a decorator so only an admin user can create a new post

@@ -50,6 +50,7 @@
                     <!--  Show all the comments on a post -->
                     {%for comment in comments:%}
                     <ul class="commentList">
+
                         <li>
                             <div class="commenterImage">
                                 <img src="{{ comment.comment_author.email | gravatar }}"/>
@@ -57,9 +58,16 @@
                             </div>
                             <div class="commentText">
                                 <p>{{comment.text|safe}}</p>
-                                <span class="date sub-text">{{comment.comment_author.name}}</span>
+
+                                <span class="date sub-text">{{comment.comment_author.name}} -{{posted_time[loop.index - 1]}}</span>
+                                <span>
+                                    {%if comment.comment_author.email == current_user.email:%}
+                                    <a href="{{url_for('delete_comment',comment_id = comment.id,post_id = post.id)}}">✘</a>
+                                    {% endif %}
+                                </span>
                             </div>
                         </li>
+
                     </ul>
                     {% endfor %}
                 </div>
